@@ -49,6 +49,6 @@ def find(dicts, username, email, pw):
             # return x
 # Example usage
 headers = ["ID", "Username","Email", "Password"]
-header = ["ID", "Username", "Gender", "Email", "Password", "Age", "Department", "Phone_Number", "Pic"]
+header = ["ID", "Username", "Gender", "Email", "Password", "Age", "Department", "Phone_Number"
 # tuples = [("John", 30, "New York"), ("Jane", 25, "Los Angeles")]
 # dicts = convert_tuples_to_dicts(data)

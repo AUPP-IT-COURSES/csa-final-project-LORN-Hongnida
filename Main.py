@@ -124,6 +124,7 @@ def LogIn(button_text):
                 ID = len(D_Data)
             elif button_text == "patient":
                 found = find(P_Data, username, email, pw)
+                print(P_Data['Email'])
                 ID = len(P_Data) 
         
             if found == "email":
@@ -198,8 +199,8 @@ def LogIn(button_text):
 
     if button_text == "admin":
         heading_lb.config(text="Admin Portal")
-    elif button_text == "doctor":
         login_img.config(image=login1_admin_icon)
+    elif button_text == "doctor":
         heading_lb.config(text="Doctor Portal")
         login_img.config(image=login1_doctor_icon)
     elif button_text == "patient":
@@ -230,7 +231,7 @@ def SignUp():
         email = patient_email_en.get()
         pw = password_en.get()
         re_pw = confirm_password_en.get()
-        
+        Id = len(D_Data)+1
         if username == '':
             message_box("⚠️ Username is required!")
             patient_name_en.config(highlightbackground="red")
@@ -247,6 +248,10 @@ def SignUp():
             message_box("⚠️ Password doesn't match!")
             password_en.config(highlightbackground="red")            
         else:
+            add_d = ("INSERT INTO `ehms(python)`.`patients` (`ID`, `Username`, `Gender`, `Email`, `Password`,`Age`, `Department`, `Phone_Number` ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);")
+            val = (Id, username, '0', email, pw,'0', '0', '0') 
+            my_cursor.execute(add_d, val)
+            conn.commit()
             succeed_lb = Label(signup_fm, text="Sign Up Successful!. Login to use.", bg=bg_color,fg=header_color, font=("Bold", 10))
             succeed_lb.place(x=460, y=450)
     def open_pic():
@@ -272,7 +277,7 @@ def SignUp():
     pfp_fm = Frame(signup_fm, highlightbackground=header_color, highlightthickness=3)
     pfp_fm.place(x=12.5, y=12.5, width=120, height=120)
 
-    pfp_btn = Button(signup_fm, image=login_patient_icon, bd=0, command=open_pic)
+    pfp_btn = Label(signup_fm, image=login_patient_icon, bd=0)
     pfp_btn.place(x=16, y=16, width=115, height=115)
 
     signup_lb = Label(signup_fm, text="Fill in the information in the form below", font=15, bg=bg_color, fg=header_color)
